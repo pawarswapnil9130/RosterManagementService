@@ -17,6 +17,10 @@ function ManagerHome() {
         role: 'employee', // Default role
     });
 
+    const handleLogout = () => {
+        
+        window.location.href = '/';
+    };
     const [rosterFormData, setRosterFormData] = useState({
         empid: '',
         date: '',
@@ -116,6 +120,25 @@ function ManagerHome() {
 
     return (
         <div>
+            <div style={{ position: 'relative' }}>
+    <button
+        className="logout-button"
+        onClick={handleLogout}
+        style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'red', 
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            cursor: 'pointer',
+        }}
+    >
+        Logout
+    </button>
+</div>
+
             <h1>Manager Home</h1>
             <Button variant="primary" onClick={() => handleButtonClick('addUser')}>
                 Add User

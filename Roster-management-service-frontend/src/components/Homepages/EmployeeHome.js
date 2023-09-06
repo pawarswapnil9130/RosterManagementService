@@ -10,6 +10,10 @@ function EmployeeHome({fetchedData }) {
         }
     }, [fetchedData.id]); // Include fetchedData.id as a dependency
 
+    const handleLogout = () => {
+        
+        window.location.href = '/';
+    };
     const fetchRosterDetails = async () => {
         try {
             const response = await axios.get(`http://localhost:8084/roster/${fetchedData.id}`);
@@ -23,6 +27,25 @@ function EmployeeHome({fetchedData }) {
 
     return (
         <div>
+            <div style={{ position: 'relative' }}>
+    <button
+        className="logout-button"
+        onClick={handleLogout}
+        style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'red', 
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            cursor: 'pointer',
+        }}
+    >
+        Logout
+    </button>
+</div>
+
             {rosterDetails ? (
                 <div>
                     <h1>Welcome, {rosterDetails.empName}</h1>

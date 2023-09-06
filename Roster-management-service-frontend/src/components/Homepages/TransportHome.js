@@ -20,7 +20,10 @@ function TransportHome() {
         fetchAllEmployees();
     }, []);
     
-
+    const handleLogout = () => {
+        
+        window.location.href = '/';
+    };
     const fetchAllEmployees = async () => {
         try {
             const response = await axios.get('http://localhost:8084/roster/all');
@@ -32,7 +35,7 @@ function TransportHome() {
 
     const fetchRosterDetails = async (empid) => {
         try {
-            const response = await axios.get(`http://localhost:8080/roster/${empid}`);
+            const response = await axios.get(`http://localhost:8084/roster/${empid}`);
             const rosterData = response.data;
             setRosterDetails(rosterData);
             setFormData({
@@ -66,10 +69,10 @@ function TransportHome() {
                     empName: formData.empName
                 };
 
-                const response = await axios.put(`http://localhost:8080/roster/update/${formData.empid}`, updatedData);
+                const response = await axios.put(`http://localhost:8084/roster/update/${formData.empid}`, updatedData);
                 console.log('Roster updated successfully:', response.data);
             } else {
-                const response = await axios.post('http://localhost:8080/roster/create', formData);
+                const response = await axios.post('http://localhost:8084/roster/create', formData);
                 console.log('Roster added successfully:', response.data);
             }
             fetchAllEmployees();
@@ -92,6 +95,25 @@ function TransportHome() {
 
     return (
         <div>
+           <div style={{ position: 'relative' }}>
+    <button
+        className="logout-button"
+        onClick={handleLogout}
+        style={{
+            position: 'absolute',
+            top: '60px',
+            right: '10px',
+            backgroundColor: 'red', 
+            color: 'white',
+            border: 'none',
+            padding: '5px 10px',
+            cursor: 'pointer',
+        }}
+    >
+        Logout
+    </button>
+</div>
+
             <h1>Welcome to Transport Home</h1>
             <h2>All Employees</h2>
             <table>

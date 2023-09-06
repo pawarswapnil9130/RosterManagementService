@@ -33,13 +33,17 @@ function EmployeeLoginForm() {
 
         try {
             const response = await axios.post('http://localhost:8084/api/login', formData);
-            const { data } = response;
+            console.log(response.data);
+            const  data  = response.data;
             
-            setUserRole(data.role);
-            console.log(data);
-            console.log('Login successful. Role:', data.role );
-            console.log('id =' , data.id);
-            setFetchedData(data);
+            if (data) {
+                setUserRole(data.role);
+                console.log('Login successful. Role:', data.role);
+                console.log('id =', data.id);
+                setFetchedData(data);
+            } else {
+                console.error('Login failed: User not found');
+            }
         } catch (error) {
             console.error('Login failed:', error.response);
         }
@@ -52,7 +56,7 @@ function EmployeeLoginForm() {
             return <ManagerHome />;
         } else if (userRole === 'driver') {
             return <DriverHome fetchedData= {fetchedData}/>;
-        } else if (userRole === 'Transport') {
+        } else if (userRole === 'transport') {
             return <TransportHome fetchedData={fetchedData}/>;
         }
     
