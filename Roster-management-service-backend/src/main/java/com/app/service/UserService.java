@@ -20,6 +20,8 @@ public class UserService {
     }
     
     public User findByUsernameAndPassword(String username, String password) {
+    	User u =userRepository.findByUsernameAndPassword(username, password);
+    	System.out.println(u);
         return userRepository.findByUsernameAndPassword(username, password);
     }
     

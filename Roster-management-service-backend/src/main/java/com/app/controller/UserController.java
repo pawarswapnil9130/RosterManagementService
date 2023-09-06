@@ -36,18 +36,23 @@ public class UserController {
     }
     
     @PostMapping("/login")
-    public User login(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
+    	System.out.println(user.getPassword());
+    	System.out.println(user.getUsername());
         User loggedInUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        System.out.println(loggedInUser.getRole());
         if (loggedInUser != null) {
-             ResponseEntity.ok(loggedInUser); 
-             return loggedInUser;
+        	System.out.println(loggedInUser);
+            return ResponseEntity.ok(loggedInUser);
         } else {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
+
     
     @PostMapping("/updateUser/{id}")
     public ResponseEntity<String> updateUser(@RequestBody User updatedUser) {
+    	
         try {
             User existingUser = userRepository.findById(updatedUser.getId()).orElse(null);
             if (existingUser == null) {
